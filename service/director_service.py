@@ -10,4 +10,3 @@ class DirectorService:
 
     def get_one(self, did: int):
         return self.dao.get_one(did)
-
