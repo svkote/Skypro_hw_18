@@ -1,4 +1,4 @@
-from model.movie import Movie
+from .model.movie import Movie
 
 
 class MovieDao:
@@ -6,7 +6,8 @@ class MovieDao:
         self.session = session
 
     def get_all(self):
-        return self.session.query(Movie).all()
+        all_movie = self.session.query(Movie).all()
+        return all_movie
 
     def get_one(self, mid: int) -> Movie:
         return self.session.query(Movie).get(mid)
@@ -14,13 +15,13 @@ class MovieDao:
     def get_all_for_filter(self):
         return self.session.query(Movie)
 
-    def filter_all_by_director_id(self, all_movies, did: int) -> list:
+    def filter_all_by_director_id(self, all_movies, did: int):
         return all_movies.filter(Movie.director_id == did)
 
-    def filter_all_by_genre_id(self, all_movies, gid: int) -> list:
+    def filter_all_by_genre_id(self, all_movies, gid: int):
         return all_movies.filter(Movie.genre_id == gid)
 
-    def filter_all_by_year(self, all_movies, year: int) -> list:
+    def filter_all_by_year(self, all_movies, year: int):
         return all_movies.filter(Movie.year == year)
 
     def final_filter(self, all_movies):

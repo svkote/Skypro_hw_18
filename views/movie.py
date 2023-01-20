@@ -10,11 +10,12 @@ movie_ns = Namespace('movies')
 class MoviesView(Resource):
     def get(self):
         data = {
-            'director': request.args.get('director_id'),
-            'genre': request.args.get('genre_id'),
+            'director_id': request.args.get('director_id'),
+            'genre_id': request.args.get('genre_id'),
             'year': request.args.get('year')
         }
         all_movies = movie_service.filters(data)
+        # all_movies = movie_service.get_all()
         return movies_schema.dump(all_movies), 200
 
     def post(self):
@@ -23,7 +24,7 @@ class MoviesView(Resource):
         return '', 201, {'location': f'/movies/{new_movie.id}'}
 
 
-@movie_ns.route('/<int:mid>')
+@movie_ns.route('/<int:mid>/')
 class MovieView(Resource):
     def get(self, mid):
         movie = movie_service.get_one(mid)
